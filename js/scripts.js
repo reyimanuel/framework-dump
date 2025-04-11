@@ -27,3 +27,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+// kegiatan
+   const backButton = document.querySelector('.back-button');
+
+   if (backButton) {
+     backButton.addEventListener('click', () => {
+       history.back();
+     });
+   }
+   
+   if (backButton) {
+     backButton.addEventListener('click', () => {
+       if (document.referrer && document.referrer !== window.location.href) {
+          history.back();
+       } else {
+          window.location.href = 'kegiatan.html';
+       }
+     });
+   }
+   

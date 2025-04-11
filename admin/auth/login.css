@@ -1,6 +1,3 @@
-@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-@import '../../node_modules/bootstrap-icons/font/bootstrap-icons.css';
-
 :root {
   --HME-red: #c62828;
   --HME-blue: #0d47a1;
@@ -20,7 +17,7 @@ body {
   background-attachment: fixed;
 }
 
-.login-container {
+.container {
   max-width: 550px;
   width: 100%;
   padding: 20px;
@@ -46,9 +43,11 @@ body {
 }
 
 .form-control {
-  border-radius: 5px;
-  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  padding: 0.9rem 1.2rem;
   border: 1px solid #ced4da;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .form-control:focus {
@@ -106,11 +105,49 @@ body {
   border-color: var(--HME-blue);
 }
 
-.alert {
-  border-radius: 5px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1.5rem;
+.btn-back {
+  background-color: var(--HME-blue);
+  border: 2px solid var(--HME-blue);
+  color: var(--HME-light);
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-back:hover,
+.btn-back:focus {
+  background-color: rgba(13, 71, 161, 0.1);
+  transform: translateY(-3px);
+}
+
+.btn-reset {
+  background: linear-gradient(to right, var(--HME-blue), var(--HME-red));
   border: none;
+  color: var(--HME-light);
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-reset:hover,
+.btn-reset:focus {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background: var(--HME-light);
+  color: gray;
+}
+
+.alert {
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+  border: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .password-toggle {
@@ -124,6 +161,40 @@ body {
 
 .password-toggle i {
   color: #6c757d;
+}
+
+.process-steps {
+  background-color: rgba(13, 71, 161, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.step:last-child {
+  margin-bottom: 0;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: gray;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex-grow: 1;
 }
 
 /* Animation */
@@ -144,11 +215,16 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 576px) {
-  .login-container {
-    padding: 10px;
+  .container {
+    padding: 15px;
   }
 
   .card-body {
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .logo {
+    width: 90px;
+    height: 90px;
   }
 }
