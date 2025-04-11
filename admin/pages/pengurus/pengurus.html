@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Pengurus - HME UNSRAT</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="pengurus.css" rel="stylesheet"/>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <img src="../../../assets/logo/HME.png" alt="Logo HME UNSRAT" class="sidebar-logo d-inline-block align-top img-thumbnail me-2 rounded-circle">
+      <h5 class="mb-0">HME UNSRAT</h5>
+      <p class="mb-0 small">Admin Dashboard</p>
+    </div>
+    <div class="sidebar-menu">
+      <a href="../dashboard/dashboard.html" class="sidebar-menu-item"> <i class="bi bi-speedometer2"></i> Dashboard </a>
+      <a href="../pengurus/pengurus.html" class="sidebar-menu-item active"> <i class="bi bi-people"></i> Manajemen Pengurus </a>
+      <a href="../kegiatan/kegiatan.html" class="sidebar-menu-item"> <i class="bi bi-calendar-event"></i> Manajemen Kegiatan </a>
+      <a href="../galeri/galeri.html" class="sidebar-menu-item"> <i class="bi bi-images"></i> Manajemen Galeri </a>
+      <a href="../../auth/login.html" class="sidebar-menu-item"> <i class="bi bi-box-arrow-left"></i> Logout </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header">
+      <button class="btn btn-sm d-md-none toggle-sidebar" style="display: none">
+        <i class="bi bi-list"></i>
+      </button>
+      <div class="d-flex align-items-center">
+        <div class="dropdown user-dropdown d-flex align-items-center">
+          <i class="bi bi-person-circle me-2" style="font-size: 1.5rem"></i>
+          <div>
+            <p class="mb-0 fw-bold">Admin</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Action Buttons -->
+      <div class="row mb-4">
+        <div class="col-md-8">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-secondary active">Semua</button>
+            <button type="button" class="btn btn-outline-secondary">Aktif</button>
+            <button type="button" class="btn btn-outline-secondary">Alumni</button>
+          </div>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahPengurusModal">
+            <i class="bi bi-plus-lg me-1"></i> Tambah Pengurus
+          </button>
+        </div>
+      </div>
+
+      <!-- Search and Filter -->
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Cari pengurus...">
+                    <button class="btn btn-outline-secondary" type="button">
+                      <i class="bi bi-search"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="row g-2">
+                    <div class="col-md-4">
+                      <select class="form-select">
+                        <option selected>Semua Jabatan</option>
+                        <option>Ketua</option>
+                        <option>Wakil Ketua</option>
+                        <option>Sekretaris</option>
+                        <option>Wakil Sekretaris</option>
+                        <option>Bendahara</option>
+                        <option>Wakil Bendahara</option>
+                        <option>Koordinator</option>
+                        <option>Anggota</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-select">
+                        <option selected>Semua Divisi</option>
+                        <option>Acara</option>
+                        <option>Humas</option>
+                        <option>Akademik</option>
+                        <option>Pengabdian</option>
+                        <option>Kewirausahaan</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-select">
+                        <option selected>Semua Angkatan</option>
+                        <option>2025</option>
+                        <option>2024</option>
+                        <option>2023</option>
+                        <option>2022</option>
+                        <option>2021</option>
+                        <option>2020</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pengurus Table -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                <h5 class="mb-0 me-3">Daftar Pengurus</h5>
+                <span class="badge bg-primary">24 Total</span>
+              </div>
+              <div class="dropdown">
+                <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-download me-1"></i> Export
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="exportDropdown">
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-excel me-2"></i>Excel</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-pdf me-2"></i>PDF</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-text me-2"></i>CSV</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="checkAll">
+                          <label class="form-check-label" for="checkAll"></label>
+                        </div>
+                      </th>
+                      <th>Nama</th>
+                      <th>NIM</th>
+                      <th>Jabatan</th>
+                      <th>Divisi</th>
+                      <th>Angkatan</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label"></label>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <h6 class="mb-0">Neoville Tajujung</h6>
+                            <p class="mb-0 small text-muted">neovilletajujung026@unsrat.ac.id</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>21021106001</td>
+                      <td>Ketua HME</td>
+                      <td>Nonbid</td>
+                      <td>2021</td>
+                      <td><span class="badge-status badge-active">Aktif</span></td>
+                      <td>
+                        <button class="btn-action view" data-bs-toggle="modal" data-bs-target="#detailPengurusModal"><i class="bi bi-eye"></i></button>
+                        <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editPengurusModal"><i class="bi bi-pencil"></i></button>
+                        <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusPengurusModal"><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label"></label>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <h6 class="mb-0">Julio Roring</h6>
+                            <p class="mb-0 small text-muted">juliororing026@unsrat.ac.id</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>21021106002</td>
+                      <td>Wakil Ketua</td>
+                      <td>Nonbid</td>
+                      <td>2021</td>
+                      <td><span class="badge-status badge-active">Aktif</span></td>
+                      <td>
+                        <button class="btn-action view" data-bs-toggle="modal" data-bs-target="#detailPengurusModal"><i class="bi bi-eye"></i></button>
+                        <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editPengurusModal"><i class="bi bi-pencil"></i></button>
+                        <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusPengurusModal"><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label"></label>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <h6 class="mb-0">Sydney Pesiwarissa</h6>
+                            <p class="mb-0 small text-muted">sydneypesiwarissa026@unsrat.ac.id</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>21021106003</td>
+                      <td>Sekretaris</td>
+                      <td>Nonbid</td>
+                      <td>2021</td>
+                      <td><span class="badge-status badge-active">Aktif</span></td>
+                      <td>
+                        <button class="btn-action view" data-bs-toggle="modal" data-bs-target="#detailPengurusModal"><i class="bi bi-eye"></i></button>
+                        <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editPengurusModal"><i class="bi bi-pencil"></i></button>
+                        <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusPengurusModal"><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label"></label>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <h6 class="mb-0">Diendels Saryono</h6>
+                            <p class="mb-0 small text-muted">diendelssaryon026@unsrat.ac.id</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>21021106004</td>
+                      <td>Bendahara</td>
+                      <td>Nonbid</td>
+                      <td>2021</td>
+                      <td><span class="badge-status badge-active">Aktif</span></td>
+                      <td>
+                        <button class="btn-action view" data-bs-toggle="modal" data-bs-target="#detailPengurusModal"><i class="bi bi-eye"></i></button>
+                        <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editPengurusModal"><i class="bi bi-pencil"></i></button>
+                        <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusPengurusModal"><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label"></label>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <h6 class="mb-0">Micha Wungow</h6>
+                            <p class="mb-0 small text-muted">michawungow026@unsrat.ac.id</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>21021106005</td>
+                      <td>Bendahara</td>
+                      <td>Nonbid</td>
+                      <td>2021</td>
+                      <td><span class="badge-status badge-active">Aktif</span></td>
+                      <td>
+                        <button class="btn-action view" data-bs-toggle="modal" data-bs-target="#det ailPengurusModal"><i class="bi bi-eye"></i></button>
+                        <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editPengurusModal"><i class="bi bi-pencil"></i></button>
+                        <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusPengurusModal"><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label"></label>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <h6 class="mb-0">Yuan Mantiri</h6>
+                            <p class="mb-0 small text-muted">yuanmantiri026@unsrat.ac.id</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>21021106006</td>
+                      <td>Wakil Bendahara</td>
+                      <td>Nonbid</td>
+                      <td>2021</td>
+                      <td><span class="badge-status badge-active">Aktif</span></td>
+                      <td>
+                        <button class="btn-action view" data-bs-toggle="modal" data-bs-target="#detailPengurusModal"><i class="bi bi-eye"></i></button>
+                        <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editPengurusModal"><i class="bi bi-pencil"></i></button>
+                        <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusPengurusModal"><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label"></label>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <h6 class="mb-0">Brando Mende</h6>
+                            <p class="mb-0 small text-muted">brandomende026@unsrat.ac.id</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>21021106007</td>
+                      <td>Koordinator</td>
+                      <td>Bursa & Pendanaan</td>
+                      <td>2021</td>
+                      <td><span class="badge-status badge-active">Aktif</span></td>
+                      <td>
+                        <button class="btn-action view" data-bs-toggle="modal" data-bs-target="#detailPengurusModal"><i class="bi bi-eye"></i></button>
+                        <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editPengurusModal"><i class="bi bi-pencil"></i></button>
+                        <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusPengurusModal"><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox">
+                          <label class="form-check-label"></label>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <h6 class="mb-0">Michelle Wowor</h6>
+                            <p class="mb-0 small text-muted">michellewowor026@unsrat.ac.id</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>21021106001</td>
+                      <td>Koordinator</td>
+                      <td>Umum & Sarana Prasarana</td>
+                      <td>2018</td>
+                      <td><span class="badge-status badge-active">Aktif</span></td>
+                      <td>
+                        <button class="btn-action view" data-bs-toggle="modal" data-bs-target="#detailPengurusModal"><i class="bi bi-eye"></i></button>
+                        <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editPengurusModal"><i class="bi bi-pencil"></i></button>
+                        <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusPengurusModal"><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <p class="mb-0 small text-muted">Menampilkan 1-8 dari 24 pengurus</p>
+                </div>
+                <nav aria-label="Page navigation">
+                  <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Tambah Pengurus -->
+  <div class="modal fade" id="tambahPengurusModal" tabindex="-1" aria-labelledby="tambahPengurusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="tambahPengurusModalLabel">Tambah Pengurus Baru</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row mb-3">
+              <div class="col-md-12 text-center mb-3">
+                <div class="position-relative d-inline-block">
+                  <img src="/placeholder.svg?height=100&width=100" alt="Foto Profil" class="avatar-lg">
+                  <div class="position-absolute bottom-0 end-0">
+                    <div class="file-upload">
+                      <input type="file" id="uploadFoto" accept="image/*">
+                      <label for="uploadFoto" class="btn-action edit">
+                        <i class="bi bi-camera"></i>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <p class="small text-muted mb-0">Unggah foto profil</p>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="nama" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="nama" required>
+              </div>
+              <div class="col-md-6">
+                <label for="nim" class="form-label">NIM <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="nim" required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="email" required>
+              </div>
+              <div class="col-md-6">
+                <label for="telepon" class="form-label">Nomor Telepon</label>
+                <input type="tel" class="form-control" id="telepon">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="jabatan" class="form-label">Jabatan <span class="text-danger">*</span></label>
+                <select class="form-select" id="jabatan" required>
+                  <option selected disabled value="">Pilih Jabatan</option>
+                  <option>Ketua</option>
+                  <option>Wakil Ketua</option>
+                  <option>Sekretaris</option>
+                  <option>Bendahara</option>
+                  <option>Koordinator</option>
+                  <option>Anggota</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="divisi" class="form-label">Divisi</label>
+                <select class="form-select" id="divisi">
+                  <option selected disabled value="">Pilih Divisi</option>
+                  <option>Acara</option>
+                  <option>Humas</option>
+                  <option>Akademik</option>
+                  <option>Pengabdian</option>
+                  <option>Kewirausahaan</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="angkatan" class="form-label">Angkatan <span class="text-danger">*</span></label>
+                <select class="form-select" id="angkatan" required>
+                  <option selected disabled value="">Pilih Angkatan</option>
+                  <option>2025</option>
+                  <option>2024</option>
+                  <option>2023</option>
+                  <option>2022</option>
+                  <option>2021</option>
+                  <option>2020</option>
+                  <option>2019</option>
+                  <option>2018</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                <select class="form-select" id="status" required>
+                  <option selected value="Aktif">Aktif</option>
+                  <option>Cuti</option>
+                  <option>Alumni</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label for="alamat" class="form-label">Alamat</label>
+                <textarea class="form-control" id="alamat" rows="2"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Pengurus -->
+  <div class="modal fade" id="editPengurusModal" tabindex="-1" aria-labelledby="editPengurusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editPengurusModalLabel">Edit Pengurus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row mb-3">
+              <div class="col-md-12 text-center mb-3">
+                <div class="position-relative d-inline-block">
+                  <img src="/placeholder.svg?height=100&width=100" alt="Foto Profil" class="avatar-lg">
+                  <div class="position-absolute bottom-0 end-0">
+                    <div class="file-upload">
+                      <input type="file" id="editFoto" accept="image/*">
+                      <label for="editFoto" class="btn-action edit">
+                        <i class="bi bi-camera"></i>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <p class="small text-muted mb-0">Unggah foto profil</p>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="editNama" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="editNama" value="Budi Santoso" required>
+              </div>
+              <div class="col-md-6">
+                <label for="editNim" class="form-label">NIM <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="editNim" value="19021106001" required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="editEmail" class="form-label">Email <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="editEmail" value="budi@unsrat.ac.id" required>
+              </div>
+              <div class="col-md-6">
+                <label for="editTelepon" class="form-label">Nomor Telepon</label>
+                <input type="tel" class="form-control" id="editTelepon" value="081234567890">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="editJabatan" class="form-label">Jabatan <span class="text-danger">*</span></label>
+                <select class="form-select" id="editJabatan" required>
+                  <option selected>Ketua</option>
+                  <option>Wakil Ketua</option>
+                  <option>Sekretaris</option>
+                  <option>Bendahara</option>
+                  <option>Koordinator</option>
+                  <option>Anggota</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="editDivisi" class="form-label">Divisi</label>
+                <select class="form-select" id="editDivisi">
+                  <option selected disabled value="">Pilih Divisi</option>
+                  <option>Acara</option>
+                  <option>Humas</option>
+                  <option>Akademik</option>
+                  <option>Pengabdian</option>
+                  <option>Kewirausahaan</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="editAngkatan" class="form-label">Angkatan <span class="text-danger">*</span></label>
+                <select class="form-select" id="editAngkatan" required>
+                  <option>2025</option>
+                  <option>2024</option>
+                  <option>2023</option>
+                  <option>2022</option>
+                  <option>2021</option>
+                  <option>2020</option>
+                  <option selected>2019</option>
+                  <option>2018</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="editStatus" class="form-label">Status <span class="text-danger">*</span></label>
+                <select class="form-select" id="editStatus" required>
+                  <option selected>Aktif</option>
+                  <option>Cuti</option>
+                  <option>Alumni</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label for="editAlamat" class="form-label">Alamat</label>
+                <textarea class="form-control" id="editAlamat" rows="2">Jl. Kampus UNSRAT, Bahu, Kec. Malalayang, Kota Manado, Sulawesi Utara</textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary">Simpan Perubahan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Detail Pengurus -->
+  <div class="modal fade" id="detailPengurusModal" tabindex="-1" aria-labelledby="detailPengurusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailPengurusModalLabel">Detail Pengurus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4 text-center">
+              <img src="/placeholder.svg?height=100&width=100" alt="Foto Profil" class="avatar-lg mb-3">
+              <h5>Budi Santoso</h5>
+              <p class="mb-1">Ketua HME</p>
+              <span class="badge-status badge-active">Aktif</span>
+            </div>
+            <div class="col-md-8">
+              <h6 class="border-bottom pb-2 mb-3">Informasi Pribadi</h6>
+              <div class="row mb-2">
+                <div class="col-md-4 text-muted">NIM</div>
+                <div class="col-md-8">19021106001</div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4 text-muted">Email</div>
+                <div class="col-md-8">budi@unsrat.ac.id</div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4 text-muted">Telepon</div>
+                <div class="col-md-8">081234567890</div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4 text-muted">Alamat</div>
+                <div class="col-md-8">Jl. Kampus UNSRAT, Bahu, Kec. Malalayang, Kota Manado</div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4 text-muted">Angkatan</div>
+                <div class="col-md-8">2019</div>
+              </div>
+              
+              <h6 class="border-bottom pb-2 mb-3 mt-4">Informasi Organisasi</h6>
+              <div class="row mb-2">
+                <div class="col-md-4 text-muted">Jabatan</div>
+                <div class="col-md-8">Ketua HME</div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4 text-muted">Divisi</div>
+                <div class="col-md-8">-</div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4 text-muted">Periode</div>
+                <div class="col-md-8">2022-2023</div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4 text-muted">Bergabung Sejak</div>
+                <div class="col-md-8">12 September 2019</div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-4 text-muted">Status</div>
+                <div class="col-md-8"><span class="badge-status badge-active">Aktif</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#editPengurusModal">Edit Pengurus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Hapus Pengurus -->
+  <div class="modal fade" id="hapusPengurusModal" tabindex="-1" aria-labelledby="hapusPengurusModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="hapusPengurusModalLabel">Konfirmasi Hapus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-4">
+            <i class="bi bi-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+          </div>
+          <p class="text-center">Apakah Anda yakin ingin menghapus pengurus <strong>Budi Santoso</strong>?</p>
+          <p class="text-center text-muted small">Tindakan ini tidak dapat dibatalkan dan semua data terkait pengurus ini akan dihapus.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-danger">Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Toggle Sidebar on Mobile
+    document.querySelector('.toggle-sidebar')?.addEventListener('click', function() {
+      document.querySelector('.sidebar').classList.toggle('show');
+    });
+    
+    // Check All Checkboxes
+    document.getElementById('checkAll')?.addEventListener('change', function() {
+      const checkboxes = document.querySelectorAll('tbody .form-check-input');
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = this.checked;
+      });
+    });
+  </script>
+</body>
+</html>
+    

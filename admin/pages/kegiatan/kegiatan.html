@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Kegiatan - HME UNSRAT</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="kegiatan.css" rel="stylesheet"/>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <img src="../../../assets/logo/HME.png" alt="Logo HME UNSRAT" class="sidebar-logo d-inline-block align-top img-thumbnail me-2 rounded-circle">
+      <h5 class="mb-0">HME UNSRAT</h5>
+      <p class="mb-0 small">Admin Dashboard</p>
+    </div>
+    <div class="sidebar-menu">
+      <a href="../dashboard/dashboard.html" class="sidebar-menu-item"> <i class="bi bi-speedometer2"></i> Dashboard </a>
+      <a href="../pengurus/pengurus.html" class="sidebar-menu-item"> <i class="bi bi-people"></i> Manajemen Pengurus </a>
+      <a href="../kegiatan/kegiatan.html" class="sidebar-menu-item active"> <i class="bi bi-calendar-event"></i> Manajemen Kegiatan </a>
+      <a href="../galeri/galeri.html" class="sidebar-menu-item"> <i class="bi bi-images"></i> Manajemen Galeri </a>
+      <a href="../../auth/login.html" class="sidebar-menu-item"> <i class="bi bi-box-arrow-left"></i> Logout </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header">
+      <button class="btn btn-sm d-md-none toggle-sidebar" style="display: none">
+        <i class="bi bi-list"></i>
+      </button>
+      <div class="d-flex align-items-center">
+        <div class="dropdown user-dropdown d-flex align-items-center">
+          <i class="bi bi-person-circle me-2" style="font-size: 1.5rem"></i>
+          <div>
+            <p class="mb-0 fw-bold">Admin</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Tabs -->
+      <ul class="nav nav-tabs mb-4" id="eventTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="list-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab" aria-controls="list" aria-selected="true">Daftar Kegiatan</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="detail-tab" data-bs-toggle="tab" data-bs-target="#detail" type="button" role="tab" aria-controls="detail" aria-selected="false">Detail Kegiatan</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar" type="button" role="tab" aria-controls="calendar" aria-selected="false">Kalender</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="eventTabsContent">
+        <!-- List Tab -->
+        <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
+          <!-- Action Buttons -->
+          <div class="row mb-4">
+            <div class="col-md-8">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-secondary active">Semua</button>
+                <button type="button" class="btn btn-outline-secondary">Published</button>
+                <button type="button" class="btn btn-outline-secondary">Draft</button>
+                <button type="button" class="btn btn-outline-secondary">Archived</button>
+              </div>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahKegiatanModal">
+                <i class="bi bi-plus-lg me-1"></i> Tambah Kegiatan
+              </button>
+            </div>
+          </div>
+
+          <!-- Search and Filter -->
+          <div class="row mb-4">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Cari kegiatan...">
+                        <button class="btn btn-outline-secondary" type="button">
+                          <i class="bi bi-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="row g-2">
+                        <div class="col-md-4">
+                          <select class="form-select">
+                            <option selected>Semua Kategori</option>
+                            <option>Talkshow</option>
+                            <option>Webinar</option>
+                            
+                            <option>Workshop</option>
+                            <option>Competition</option>
+                            <option>Community Service</option>
+                            <option>Internal</option>
+                          </select>
+                        </div>
+                        <div class="col-md-4">
+                          <select class="form-select">
+                            <option selected>Semua Tahun</option>
+                            <option>2025</option>
+                            <option>2024</option>
+                            <option>2023</option>
+                            <option>2022</option>
+                            <option>2021</option>
+                          </select>
+                        </div>
+                        <div class="col-md-4">
+                          <select class="form-select">
+                            <option selected>Urutkan: Terbaru</option>
+                            <option>Urutkan: Terlama</option>
+                            <option>Urutkan: A-Z</option>
+                            <option>Urutkan: Z-A</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Events Table -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <div class="d-flex align-items-center">
+                    <h5 class="mb-0 me-3">Daftar Kegiatan</h5>
+                    <span class="badge bg-primary">12 Kegiatan</span>
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-download me-1"></i> Export
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="exportDropdown">
+                      <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-excel me-2"></i>Excel</a></li>
+                      <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-pdf me-2"></i>PDF</a></li>
+                      <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-text me-2"></i>CSV</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="checkAll">
+                              <label class="form-check-label" for="checkAll"></label>
+                            </div>
+                          </th>
+                          <th>Kegiatan</th>
+                          <th>Kategori</th>
+                          <th>Tanggal</th>
+                          <th>Lokasi</th>
+                          <th>Status</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox">
+                              <label class="form-check-label"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="../../../assets/kegiatan/talkshow.jpg" alt="Kegiatan" class="event-img me-2">
+                              <div>
+                                <h6 class="mb-0">Tranformasi Mahasiswa Fakultas Teknik UNSRAT Menuju Indonesia Emas 2045</h6>
+                                <p class="mb-0 small text-muted">ID: EVENT-001</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td><span class="badge-category badge-talkshow">Talkshow</span></td>
+                          <td>22 Apr 2025</td>
+                          <td>Aula Fakultas Teknik UNSRAT</td>
+                          <td><span class="badge-status badge-upcoming">Upcoming</span></td>
+                          <td>
+                            <button class="btn-action view" onclick="showEventDetail('EVENT-001')"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editKegiatanModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusKegiatanModal"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox">
+                              <label class="form-check-label"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="../../../assets/kegiatan/webinar.png" alt="Kegiatan" class="event-img me-2">
+                              <div>
+                                <h6 class="mb-0">Sharing Internship & Expo Beasiswa</h6>
+                                <p class="mb-0 small text-muted">ID: EVENT-002</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td><span class="badge-category badge-webinar">Webinar</span></td>
+                          <td>15 Mar 2025</td>
+                          <td>Zoom Meeting</td>
+                          <td><span class="badge-status badge-upcoming">Upcoming</span></td>
+                          <td>
+                            <button class="btn-action view" onclick="showEventDetail('EVENT-002')"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editKegiatanModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusKegiatanModal"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox">
+                              <label class="form-check-label"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="../../../assets/kegiatan/studyClub.png" alt="Kegiatan" class="event-img me-2">
+                              <div>
+                                <h6 class="mb-0">Study Club Basic Programming</h6>
+                                <p class="mb-0 small text-muted">ID: EVENT-003</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td><span class="badge-category badge-workshop">Workshop</span></td>
+                          <td>19 Jun 2024</td>
+                          <td>Laboratorium Komputer FT UNSRAT</td>
+                          <td><span class="badge-status badge-draft">Draft</span></td>
+                          <td>
+                            <button class="btn-action view" onclick="showEventDetail('EVENT-003')"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editKegiatanModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusKegiatanModal"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox">
+                              <label class="form-check-label"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="../../../assets/kegiatan/lombaFutsal.jpg" alt="Kegiatan" class="event-img me-2">
+                              <div>
+                                <h6 class="mb-0">Lomba Futsal</h6>
+                                <p class="mb-0 small text-muted">ID: EVENT-004</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td><span class="badge-category badge-competition">Competition</span></td>
+                          <td>19-23 Jun 2023</td>
+                          <td>Lapangan Futsal UNSRAT</td>
+                          <td><span class="badge-status badge-completed">Completed</span></td>
+                          <td>
+                            <button class="btn-action view" onclick="showEventDetail('EVENT-004')"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editKegiatanModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusKegiatanModal"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox">
+                              <label class="form-check-label"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="../../../assets/kegiatan/karyaTulis.jpg" alt="Kegiatan" class="event-img me-2">
+                              <div>
+                                <h6 class="mb-0">Lomba Karya Tulis</h6>
+                                <p class="mb-0 small text-muted">ID: EVENT-005</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td><span class="badge-category badge-competition">Competition</span></td>
+                          <td>19-23 Jun 2023</td>
+                          <td>Online</td>
+                          <td><span class="badge-status badge-completed">Completed</span></td>
+                          <td>
+                            <button class="btn-action view" onclick="showEventDetail('EVENT-005')"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editKegiatanModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusKegiatanModal"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox">
+                              <label class="form-check-label"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="../../../assets/kegiatan/ppkOrmawa.jpg" alt="Kegiatan" class="event-img me-2">
+                              <div>
+                                <h6 class="mb-0">PPK Ormawa HME FT UNSRAT</h6>
+                                <p class="mb-0 small text-muted">ID: EVENT-006</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td><span class="badge-category badge-community">Community Service</span></td>
+                          <td>16 Jun 2024</td>
+                          <td>Desa Binaan</td>
+                          <td><span class="badge-status badge-draft">Draft</span></td>
+                          <td>
+                            <button class="btn-action view" onclick="showEventDetail('EVENT-006')"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editKegiatanModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusKegiatanModal"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox">
+                              <label class="form-check-label"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="../../../assets/kegiatan/pengabdianfkhmi.jpg" alt="Kegiatan" class="event-img me-2">
+                              <div>
+                                <h6 class="mb-0">Pengabdian Masyarakat di Desa Pulisan FKHMI</h6>
+                                <p class="mb-0 small text-muted">ID: EVENT-007</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td><span class="badge-category badge-community">Community Service</span></td>
+                          <td>30 Mar 2022</td>
+                          <td>Desa Pulisan</td>
+                          <td><span class="badge-status badge-archived">Archived</span></td>
+                          <td>
+                            <button class="btn-action view" onclick="showEventDetail('EVENT-007')"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editKegiatanModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusKegiatanModal"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox">
+                              <label class="form-check-label"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="../../../assets/kegiatan/muswil.jpg" alt="Kegiatan" class="event-img me-2">
+                              <div>
+                                <h6 class="mb-0">Musyawarah Wilayah FKHMI</h6>
+                                <p class="mb-0 small text-muted">ID: EVENT-008</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td><span class="badge-category badge-internal">Internal</span></td>
+                          <td>18 Jul 2024</td>
+                          <td>Universitas Halu Oleo Kendari</td>
+                          <td><span class="badge-status badge-upcoming">Upcoming</span></td>
+                          <td>
+                            <button class="btn-action view" onclick="showEventDetail('EVENT-008')"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit" data-bs-toggle="modal" data-bs-target="#editKegiatanModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete" data-bs-toggle="modal" data-bs-target="#hapusKegiatanModal"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <p class="mb-0 small text-muted">Menampilkan 1-8 dari 12 kegiatan</p>
+                    </div>
+                    <nav aria-label="Page navigation">
+                      <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item disabled">
+                          <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item">
+                          <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detail Tab -->
+        <div class="tab-pane fade" id="detail" role="tabpanel" aria-labelledby="detail-tab">
+          <div class="row">
+            <div class="col-lg-8">
+              <!-- Event Header -->
+              <div class="event-detail-header">
+                <img src="../../../assets/kegiatan/talkshow.jpg" alt="Tranformasi Mahasiswa Fakultas Teknik UNSRAT Menuju Indonesia Emas 2045">
+                <div class="event-detail-badges">
+                  <span class="badge-category badge-talkshow">Talkshow</span>
+                  <span class="badge-status badge-upcoming">Upcoming</span>
+                </div>
+                <div class="event-detail-header-overlay">
+                  <h3>Tranformasi Mahasiswa Fakultas Teknik UNSRAT Menuju Indonesia Emas 2045</h3>
+                  <p>ID: EVENT-001</p>
+                </div>
+              </div>
+
+              <!-- Event Info -->
+              <div class="card event-detail-info">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="event-detail-info-item">
+                        <i class="bi bi-calendar-event"></i>
+                        <div class="event-detail-info-item-content">
+                          <h6>Tanggal</h6>
+                          <p>22 April 2025</p>
+                        </div>
+                      </div>
+                      <div class="event-detail-info-item">
+                        <i class="bi bi-clock"></i>
+                        <div class="event-detail-info-item-content">
+                          <h6>Waktu</h6>
+                          <p>09:00 - 12:00 WITA</p>
+                        </div>
+                      </div>
+                      <div class="event-detail-info-item">
+                        <i class="bi bi-geo-alt"></i>
+                        <div class="event-detail-info-item-content">
+                          <h6>Lokasi</h6>
+                          <p>Aula Fakultas Teknik UNSRAT</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="event-detail-info-item">
+                        <i class="bi bi-person"></i>
+                        <div class="event-detail-info-item-content">
+                          <h6>Penyelenggara</h6>
+                          <p>Himpunan Mahasiswa Elektro FT UNSRAT</p>
+                        </div>
+                      </div>
+                      <div class="event-detail-info-item">
+                        <i class="bi bi-people"></i>
+                        <div class="event-detail-info-item-content">
+                          <h6>Kapasitas</h6>
+                          <p>200 Peserta</p>
+                        </div>
+                      </div>
+                      <div class="event-detail-info-item">
+                        <i class="bi bi-ticket-perforated"></i>
+                        <div class="event-detail-info-item-content">
+                          <h6>Biaya Pendaftaran</h6>
+                          <p>Gratis</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Event Description -->
+              <div class="card event-detail-description">
+                <div class="card-body">
+                  <h5>Deskripsi Kegiatan</h5>
+                  <p>
+                    Kegiatan Talkshow "Tranformasi Mahasiswa Fakultas Teknik UNSRAT Menuju Indonesia Emas 2045" merupakan acara yang diselenggarakan oleh Himpunan Mahasiswa Elektro (HME) Fakultas Teknik UNSRAT. Acara ini bertujuan untuk membahas peran penting mahasiswa teknik dalam mewujudkan visi Indonesia Emas 2045.
+                  </p>
+                  <p>
+                    Dalam talkshow ini, akan dihadirkan beberapa pembicara dari berbagai latar belakang, termasuk akademisi, praktisi industri, dan perwakilan pemerintah. Mereka akan berbagi pengalaman dan wawasan tentang bagaimana mahasiswa teknik dapat berkontribusi dalam pembangunan Indonesia menuju 2045.
+                  </p>
+                  <p>
+                    Beberapa topik yang akan dibahas dalam talkshow ini antara lain:
+                  </p>
+                  <ul>
+                    <li>Peran mahasiswa teknik dalam inovasi teknologi</li>
+                    <li>Pengembangan soft skill dan hard skill untuk menghadapi era digital</li>
+                    <li>Kolaborasi antara akademisi, industri, dan pemerintah</li>
+                    <li>Peluang dan tantangan dalam pembangunan infrastruktur di Indonesia</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Event Speakers -->
+              <div class="card event-detail-speakers">
+                <div class="card-body">
+                  <h5>Pembicara</h5>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="event-detail-speaker">
+                        <img src="/placeholder.svg?height=60&width=60" alt="Dr. Ir. Budi Santoso, M.T.">
+                        <div class="event-detail-speaker-info">
+                          <h6>Dr. Ir. Budi Santoso, M.T.</h6>
+                          <p>Dekan Fakultas Teknik UNSRAT</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="event-detail-speaker">
+                        <img src="/placeholder.svg?height=60&width=60" alt="Ir. Siti Rahayu, M.Sc.">
+                        <div class="event-detail-speaker-info">
+                          <h6>Ir. Siti Rahayu, M.Sc.</h6>
+                          <p>Praktisi Industri Teknologi</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Event Gallery -->
+              <div class="card event-detail-gallery">
+                <div class="card-body">
+                  <h5>Galeri Kegiatan</h5>
+                  <div class="event-detail-gallery-grid">
+                    <div class="event-detail-gallery-item">
+                      <img src="/placeholder.svg?height=100&width=100" alt="Foto Kegiatan 1">
+                    </div>
+                    <div class="event-detail-gallery-item">
+                      <img src="/placeholder.svg?height=100&width=100" alt="Foto Kegiatan 2">
+                    </div>
+                    <div class="event-detail-gallery-item">
+                      <img src="/placeholder.svg?height=100&width=100" alt="Foto Kegiatan 3">
+                    </div>
+                    <div class="event-detail-gallery-item">
+                      <img src="/placeholder.svg?height=100&width=100" alt="Foto Kegiatan 4">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Event Actions -->
+              <div class="event-detail-actions">
+                <button class="btn btn-outline-secondary">
+                  <i class="bi bi-arrow-left me-1"></i> Kembali
+                </button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editKegiatanModal">
+                  <i class="bi bi-pencil me-1"></i> Edit Kegiatan
+                </button>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <!-- Event Sidebar -->
+              <div class="event-detail-sidebar">
+                <!-- Status Card -->
+                <div class="card event-detail-sidebar-card">
+                  <div class="card-body">
+                    <h5>Status Kegiatan</h5>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="badge-status badge-upcoming px-3 py-2">Upcoming</span>
+                      <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                          Ubah Status
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="statusDropdown">
+                          <li><a class="dropdown-item" href="#"><i class="bi bi-check-circle me-2"></i>Published</a></li>
+                          <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-2"></i>Draft</a></li>
+                          <li><a class="dropdown-item" href="#"><i class="bi bi-archive me-2"></i>Archived</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <ul>
+                      <li>
+                        <i class="bi bi-calendar-check"></i>
+                        <span>Dibuat pada: 15 Januari 2025</span>
+                      </li>
+                      <li>
+                        <i class="bi bi-pencil"></i>
+                        <span>Diperbarui pada: 20 Januari 2025</span>
+                      </li>
+                      <li>
+                        <i class="bi bi-person"></i>
+                        <span>Dibuat oleh: Admin</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Registration Card -->
+                <div class="card event-detail-sidebar-card">
+                  <div class="card-body">
+                    <h5>Pendaftaran</h5>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="progress-info mb-3">
+                      <span>130 Pendaftar</span>
+                      <span>dari 200 Kuota</span>
+                    </div>
+                    <ul>
+                      <li>
+                        <i class="bi bi-calendar-plus"></i>
+                        <span>Dibuka: 1 Februari 2025</span>
+                      </li>
+                      <li>
+                        <i class="bi bi-calendar-x"></i>
+                        <span>Ditutup: 20 April 2025</span>
+                      </li>
+                      <li>
+                        <i class="bi bi-link-45deg"></i>
+                        <span>Link Pendaftaran: <a href="#">bit.ly/daftar-talkshow</a></span>
+                      </li>
+                    </ul>
+                    <button class="btn btn-outline-primary">
+                      <i class="bi bi-people me-1"></i> Lihat Pendaftar
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Contact Card -->
+                <div class="card event-detail-sidebar-card">
+                  <div class="card-body">
+                    <h5>Kontak Panitia</h5>
+                    <div class="contact-item">
+                      <i class="bi bi-whatsapp"></i>
+                      <span>+62 812-3456-7890 (Andi)</span>
+                    </div>
+                    <div class="contact-item">
+                      <i class="bi bi-envelope"></i>
+                      <span>panitia@hme-unsrat.ac.id</span>
+                    </div>
+                    <div class="contact-item">
+                      <i class="bi bi-instagram"></i>
+                      <span>@hme_unsrat</span>
+                    </div>
+                    <div class="social-links">
+                      <a href="#" class="social-link"><i class="bi bi-whatsapp"></i></a>
+                      <a href="#" class="social-link"><i class="bi bi-envelope"></i></a>
+                      <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+                      <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calendar Tab -->
+        <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Kalender Kegiatan</h5>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-outline-secondary btn-sm active">Bulan</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm">Minggu</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm">Hari</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm">Agenda</button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="text-center py-5">
+                    <i class="bi bi-calendar3 mb-3" style="font-size: 3rem;"></i>
+                    <h5>Kalender Kegiatan</h5>
+                    <p class="text-muted">Fitur kalender akan segera hadir. Anda akan dapat melihat dan mengelola kegiatan dalam tampilan kalender.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Tambah Kegiatan -->
+  <div class="modal fade" id="tambahKegiatanModal" tabindex="-1" aria-labelledby="tambahKegiatanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="tambahKegiatanModalLabel">Tambah Kegiatan Baru</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <!-- Tabs for Add Event Form -->
+            <ul class="nav nav-tabs mb-3" id="addEventTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Informasi Dasar</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="false">Detail</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="media-tab" data-bs-toggle="tab" data-bs-target="#media" type="button" role="tab" aria-controls="media" aria-selected="false">Media</button>
+              </li>
+            </ul>
+            
+            <div class="tab-content" id="addEventTabsContent">
+              <!-- Basic Info Tab -->
+              <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label for="judulKegiatan" class="form-label">Judul Kegiatan <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="judulKegiatan" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="kategoriKegiatan" class="form-label">Kategori <span class="text-danger">*</span></label>
+                    <select class="form-select" id="kategoriKegiatan" required>
+                      <option selected disabled value="">Pilih Kategori</option>
+                      <option>Talkshow</option>
+                      <option>Webinar</option>
+                      <option>Workshop</option>
+                      <option>Competition</option>
+                      <option>Community Service</option>
+                      <option>Internal</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="statusKegiatan" class="form-label">Status <span class="text-danger">*</span></label>
+                    <select class="form-select" id="statusKegiatan" required>
+                      <option selected value="Draft">Draft</option>
+                      <option>Published</option>
+                      <option>Archived</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="tanggalMulai" class="form-label">Tanggal Mulai <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" id="tanggalMulai" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="tanggalSelesai" class="form-label">Tanggal Selesai</label>
+                    <input type="date" class="form-control" id="tanggalSelesai">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="waktuMulai" class="form-label">Waktu Mulai</label>
+                    <input type="time" class="form-control" id="waktuMulai">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="waktuSelesai" class="form-label">Waktu Selesai</label>
+                    <input type="time" class="form-control" id="waktuSelesai">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label for="lokasiKegiatan" class="form-label">Lokasi <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="lokasiKegiatan" required>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Details Tab -->
+              <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label for="deskripsiKegiatan" class="form-label">Deskripsi <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="deskripsiKegiatan" rows="5" required></textarea>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="penyelenggaraKegiatan" class="form-label">Penyelenggara</label>
+                    <input type="text" class="form-control" id="penyelenggaraKegiatan" value="Himpunan Mahasiswa Elektro FT UNSRAT">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="kapasitasKegiatan" class="form-label">Kapasitas</label>
+                    <input type="number" class="form-control" id="kapasitasKegiatan">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="biayaKegiatan" class="form-label">Biaya Pendaftaran</label>
+                    <div class="input-group">
+                      <span class="input-group-text">Rp</span>
+                      <input type="number" class="form-control" id="biayaKegiatan" value="0">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="linkPendaftaran" class="form-label">Link Pendaftaran</label>
+                    <input type="url" class="form-control" id="linkPendaftaran">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label for="tagsKegiatan" class="form-label">Tags</label>
+                    <input type="text" class="form-control" id="tagsKegiatan" placeholder="Pisahkan dengan koma, contoh: seminar, webinar, mahasiswa">
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Media Tab -->
+              <div class="tab-pane fade" id="media" role="tabpanel" aria-labelledby="media-tab">
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label for="gambarKegiatan" class="form-label">Gambar Utama <span class="text-danger">*</span></label>
+                    <div class="image-preview" id="gambarKegiatanPreview">
+                      <div class="image-preview-placeholder">
+                        <i class="bi bi-image"></i>
+                        <p>Pratinjau Gambar</p>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <div class="file-upload">
+                        <input type="file" id="gambarKegiatan" accept="image/*" onchange="previewImage(event, 'gambarKegiatanPreview')">
+                        <label for="gambarKegiatan" class="file-upload-label">
+                          <i class="bi bi-upload me-2"></i> Pilih Gambar
+                        </label>
+                      </div>
+                      <p class="small text-muted mt-2">Format yang didukung: JPG, PNG, WEBP. Ukuran maksimal: 5MB</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label class="form-label">Pembicara</label>
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <label for="namaPembicara1" class="form-label">Nama Pembicara 1</label>
+                            <input type="text" class="form-control" id="namaPembicara1">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="jabatanPembicara1" class="form-label">Jabatan/Profesi</label>
+                            <input type="text" class="form-control" id="jabatanPembicara1">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <button type="button" class="btn btn-outline-secondary btn-sm">
+                              <i class="bi bi-plus-lg me-1"></i> Tambah Pembicara
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label class="form-label">Galeri Kegiatan</label>
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row mb-3">
+                          <div class="col-md-12">
+                            <div class="file-upload">
+                              <input type="file" id="galeriKegiatan" accept="image/*" multiple>
+                              <label for="galeriKegiatan" class="file-upload-label">
+                                <i class="bi bi-upload me-2"></i> Pilih Foto Galeri
+                              </label>
+                            </div>
+                            <p class="small text-muted mt-2">Anda dapat memilih beberapa foto sekaligus</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row mt-4">
+              <div class="col-md-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="publikasiKegiatan" checked>
+                  <label class="form-check-label" for="publikasiKegiatan">
+                    Publikasikan kegiatan ini di website
+                  </label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Kegiatan -->
+  <div class="modal fade" id="editKegiatanModal" tabindex="-1" aria-labelledby="editKegiatanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editKegiatanModalLabel">Edit Kegiatan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <!-- Tabs for Edit Event Form -->
+            <ul class="nav nav-tabs mb-3" id="editEventTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="edit-info-tab" data-bs-toggle="tab" data-bs-target="#edit-info" type="button" role="tab" aria-controls="edit-info" aria-selected="true">Informasi Dasar</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="edit-details-tab" data-bs-toggle="tab" data-bs-target="#edit-details" type="button" role="tab" aria-controls="edit-details" aria-selected="false">Detail</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="edit-media-tab" data-bs-toggle="tab" data-bs-target="#edit-media" type="button" role="tab" aria-controls="edit-media" aria-selected="false">Media</button>
+              </li>
+            </ul>
+            
+            <div class="tab-content" id="editEventTabsContent">
+              <!-- Basic Info Tab -->
+              <div class="tab-pane fade show active" id="edit-info" role="tabpanel" aria-labelledby="edit-info-tab">
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label for="editJudulKegiatan" class="form-label">Judul Kegiatan <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="editJudulKegiatan" value="Tranformasi Mahasiswa Fakultas Teknik UNSRAT Menuju Indonesia Emas 2045" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="editKategoriKegiatan" class="form-label">Kategori <span class="text-danger">*</span></label>
+                    <select class="form-select" id="editKategoriKegiatan" required>
+                      <option>Talkshow</option>
+                      <option>Webinar</option>
+                      <option>Workshop</option>
+                      <option>Competition</option>
+                      <option>Community Service</option>
+                      <option>Internal</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="editStatusKegiatan" class="form-label">Status <span class="text-danger">*</span></label>
+                    <select class="form-select" id="editStatusKegiatan" required>
+                      <option>Draft</option>
+                      <option selected>Published</option>
+                      <option>Archived</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="editTanggalMulai" class="form-label">Tanggal Mulai <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" id="editTanggalMulai" value="2025-04-22" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="editTanggalSelesai" class="form-label">Tanggal Selesai</label>
+                    <input type="date" class="form-control" id="editTanggalSelesai" value="2025-04-22">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="editWaktuMulai" class="form-label">Waktu Mulai</label>
+                    <input type="time" class="form-control" id="editWaktuMulai" value="09:00">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="editWaktuSelesai" class="form-label">Waktu Selesai</label>
+                    <input type="time" class="form-control" id="editWaktuSelesai" value="12:00">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label for="editLokasiKegiatan" class="form-label">Lokasi <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="editLokasiKegiatan" value="Aula Fakultas Teknik UNSRAT" required>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Details Tab -->
+              <div class="tab-pane fade" id="edit-details" role="tabpanel" aria-labelledby="edit-details-tab">
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label for="editDeskripsiKegiatan" class="form-label">Deskripsi <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="editDeskripsiKegiatan" rows="5" required>Kegiatan Talkshow "Tranformasi Mahasiswa Fakultas Teknik UNSRAT Menuju Indonesia Emas 2045" merupakan acara yang diselenggarakan oleh Himpunan Mahasiswa Elektro (HME) Fakultas Teknik UNSRAT. Acara ini bertujuan untuk membahas peran penting mahasiswa teknik dalam mewujudkan visi Indonesia Emas 2045.</textarea>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="editPenyelenggaraKegiatan" class="form-label">Penyelenggara</label>
+                    <input type="text" class="form-control" id="editPenyelenggaraKegiatan" value="Himpunan Mahasiswa Elektro FT UNSRAT">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="editKapasitasKegiatan" class="form-label">Kapasitas</label>
+                    <input type="number" class="form-control" id="editKapasitasKegiatan" value="200">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="editBiayaKegiatan" class="form-label">Biaya Pendaftaran</label>
+                    <div class="input-group">
+                      <span class="input-group-text">Rp</span>
+                      <input type="number" class="form-control" id="editBiayaKegiatan" value="0">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="editLinkPendaftaran" class="form-label">Link Pendaftaran</label>
+                    <input type="url" class="form-control" id="editLinkPendaftaran" value="https://bit.ly/daftar-talkshow">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label for="editTagsKegiatan" class="form-label">Tags</label>
+                    <input type="text" class="form-control" id="editTagsKegiatan" value="talkshow, mahasiswa, indonesia emas, transformasi">
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Media Tab -->
+              <div class="tab-pane fade" id="edit-media" role="tabpanel" aria-labelledby="edit-media-tab">
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label for="editGambarKegiatan" class="form-label">Gambar Utama <span class="text-danger">*</span></label>
+                    <div class="image-preview" id="editGambarKegiatanPreview">
+                      <img src="../../assets/kegiatan/webinar.jpg" alt="Tranformasi Mahasiswa Fakultas Teknik UNSRAT Menuju Indonesia Emas 2045">
+                    </div>
+                    <div class="text-center">
+                      <div class="file-upload">
+                        <input type="file" id="editGambarKegiatan" accept="image/*" onchange="previewImage(event, 'editGambarKegiatanPreview')">
+                        <label for="editGambarKegiatan" class="file-upload-label">
+                          <i class="bi bi-upload me-2"></i> Ganti Gambar
+                        </label>
+                      </div>
+                      <p class="small text-muted mt-2">Format yang didukung: JPG, PNG, WEBP. Ukuran maksimal: 5MB</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label class="form-label">Pembicara</label>
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <label for="editNamaPembicara1" class="form-label">Nama Pembicara 1</label>
+                            <input type="text" class="form-control" id="editNamaPembicara1" value="Dr. Ir. Budi Santoso, M.T.">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="editJabatanPembicara1" class="form-label">Jabatan/Profesi</label>
+                            <input type="text" class="form-control" id="editJabatanPembicara1" value="Dekan Fakultas Teknik UNSRAT">
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <label for="editNamaPembicara2" class="form-label">Nama Pembicara 2</label>
+                            <input type="text" class="form-control" id="editNamaPembicara2" value="Ir. Siti Rahayu, M.Sc.">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="editJabatanPembicara2" class="form-label">Jabatan/Profesi</label>
+                            <input type="text" class="form-control" id="editJabatanPembicara2" value="Praktisi Industri Teknologi">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <button type="button" class="btn btn-outline-secondary btn-sm">
+                              <i class="bi bi-plus-lg me-1"></i> Tambah Pembicara
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label class="form-label">Galeri Kegiatan</label>
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row mb-3">
+                          <div class="col-md-12">
+                            <div class="event-detail-gallery-grid mb-3">
+                              <div class="event-detail-gallery-item">
+                                <img src="/placeholder.svg?height=100&width=100" alt="Foto Kegiatan 1">
+                              </div>
+                              <div class="event-detail-gallery-item">
+                                <img src="/placeholder.svg?height=100&width=100" alt="Foto Kegiatan 2">
+                              </div>
+                              <div class="event-detail-gallery-item">
+                                <img src="/placeholder.svg?height=100&width=100" alt="Foto Kegiatan 3">
+                              </div>
+                              <div class="event-detail-gallery-item">
+                                <img src="/placeholder.svg?height=100&width=100" alt="Foto Kegiatan 4">
+                              </div>
+                            </div>
+                            <div class="file-upload">
+                              <input type="file" id="editGaleriKegiatan" accept="image/*" multiple>
+                              <label for="editGaleriKegiatan" class="file-upload-label">
+                                <i class="bi bi-upload me-2"></i> Tambah Foto Galeri
+                              </label>
+                            </div>
+                            <p class="small text-muted mt-2">Anda dapat memilih beberapa foto sekaligus</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row mt-4">
+              <div class="col-md-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="editPublikasiKegiatan" checked>
+                  <label class="form-check-label" for="editPublikasiKegiatan">
+                    Publikasikan kegiatan ini di website
+                  </label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary">Simpan Perubahan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Hapus Kegiatan -->
+  <div class="modal fade" id="hapusKegiatanModal" tabindex="-1" aria-labelledby="hapusKegiatanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="hapusKegiatanModalLabel">Konfirmasi Hapus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-4">
+            <i class="bi bi-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+          </div>
+          <p class="text-center">Apakah Anda yakin ingin menghapus kegiatan <strong>Tranformasi Mahasiswa Fakultas Teknik UNSRAT Menuju Indonesia Emas 2045</strong>?</p>
+          <p class="text-center text-muted small">Tindakan ini tidak dapat dibatalkan dan semua data terkait kegiatan ini akan dihapus secara permanen.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-danger">Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Toggle Sidebar on Mobile
+    document.querySelector('.toggle-sidebar')?.addEventListener('click', function() {
+      document.querySelector('.sidebar').classList.toggle('show');
+    });
+    
+    // Check All Checkboxes
+    document.getElementById('checkAll')?.addEventListener('change', function() {
+      const checkboxes = document.querySelectorAll('tbody .form-check-input');
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = this.checked;
+      });
+    });
+    
+    // Image preview functionality
+    function previewImage(event, previewId) {
+      const preview = document.getElementById(previewId);
+      const file = event.target.files[0];
+      
+      if (file) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+          // Clear the preview
+          preview.innerHTML = '';
+          
+          // Create and append the image
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.alt = 'Preview';
+          preview.appendChild(img);
+        }
+        
+        reader.readAsDataURL(file);
+      }
+    }
+    
+    // Show Event Detail
+    function showEventDetail(eventId) {
+      // Switch to detail tab
+      document.getElementById('detail-tab').click();
+      
+      // In a real application, you would fetch the event details based on the eventId
+      console.log(`Showing details for event: ${eventId}`);
+    }
+  </script>
+</body>
+</html>

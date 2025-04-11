@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Admin - HME UNSRAT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="dashboard.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <img src="../../../assets/logo/HME.png" alt="Logo HME UNSRAT" class="sidebar-logo d-inline-block align-top img-thumbnail me-2 rounded-circle">
+        <h5 class="mb-0">HME UNSRAT</h5>
+        <p class="mb-0 small">Admin Dashboard</p>
+      </div>
+      <div class="sidebar-menu">
+        <a href="../dashboard/dashboard.html" class="sidebar-menu-item active"> <i class="bi bi-speedometer2"></i> Dashboard </a>
+        <a href="../pengurus/pengurus.html" class="sidebar-menu-item"> <i class="bi bi-people"></i> Manajemen Pengurus </a>
+        <a href="../kegiatan/kegiatan.html" class="sidebar-menu-item"> <i class="bi bi-calendar-event"></i> Manajemen Kegiatan </a>
+        <a href="../galeri/galeri.html" class="sidebar-menu-item"> <i class="bi bi-images"></i> Manajemen Galeri </a>
+        <a href="../../auth/login.html" class="sidebar-menu-item"> <i class="bi bi-box-arrow-left"></i> Logout </a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <button class="btn btn-sm d-md-none toggle-sidebar" style="display: none">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="d-flex align-items-center">
+          <div class="dropdown user-dropdown d-flex align-items-center">
+            <i class="bi bi-person-circle me-2" style="font-size: 1.5rem"></i>
+            <div>
+              <p class="mb-0 fw-bold">Admin</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Dashboard Tab -->
+        <div id="dashboard-tab" class="tab-content active">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="mb-0">Dashboard</h4>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="card stats-card primary">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="text-muted mb-1">Total Pengurus</h6>
+                      <h3 class="mb-0">24</h3>
+                    </div>
+                    <div class="stats-icon primary">
+                      <i class="bi bi-people"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="card stats-card secondary">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="text-muted mb-1">Kegiatan Aktif</h6>
+                      <h3 class="mb-0">12</h3>
+                    </div>
+                    <div class="stats-icon secondary">
+                      <i class="bi bi-calendar-event"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="card stats-card success">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="text-muted mb-1">Foto Galeri</h6>
+                      <h3 class="mb-0">85</h3>
+                    </div>
+                    <div class="stats-icon success">
+                      <i class="bi bi-images"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Kegiatan Terbaru</h5>
+                  <a href="#" class="text-decoration-none small">Lihat Semua</a>
+                </div>
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Nama Kegiatan</th>
+                          <th>Tanggal</th>
+                          <th>Kategori</th>
+                          <th>Status</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Tranformasi Mahasiswa Fakultas Teknik UNSRAT Menuju Indonesia Emas 2045</td>
+                          <td>22 Apr 2025</td>
+                          <td>Talkshow</td>
+                          <td><span class="badge-status badge-published">Published</span></td>
+                          <td>
+                            <button class="btn-action view"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Sharing Internship & Expo Beasiswa</td>
+                          <td>15 Mar 2025</td>
+                          <td>Webinar</td>
+                          <td><span class="badge-status badge-published">Published</span></td>
+                          <td>
+                            <button class="btn-action view"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Study Club Basic Programming</td>
+                          <td>19 Jun 2024</td>
+                          <td>Study Club</td>
+                          <td><span class="badge-status badge-draft">Draft</span></td>
+                          <td>
+                            <button class="btn-action view"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Lomba Futsal</td>
+                          <td>19 Jun 2023</td>
+                          <td>Tournament</td>
+                          <td><span class="badge-status badge-published">Published</span></td>
+                          <td>
+                            <button class="btn-action view"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Lomba Karya Tulis</td>
+                          <td>19 Jun 2023</td>
+                          <td>Karya Tulis</td>
+                          <td><span class="badge-status badge-published">Published</span></td>
+                          <td>
+                            <button class="btn-action view"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete"><i class="bi bi-trash"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Data pengurus -->
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Pengurus</h5>
+                  <a href="#" class="text-decoration-none small">Lihat Semua</a>
+                </div>
+                <div class="card-body p-0">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-center p-3">
+                      <div>
+                        <h6 class="mb-0">Neoville Tajujung</h6>
+                        <p class="mb-0 small text-muted">Ketua HME</p>
+                      </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center p-3">
+                      <div>
+                        <h6 class="mb-0">Julio Roring</h6>
+                        <p class="mb-0 small text-muted">Wakil Ketua</p>
+                      </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center p-3">
+                      <div>
+                        <h6 class="mb-0">Sydney Pesiwarissa</h6>
+                        <p class="mb-0 small text-muted">Sekretaris</p>
+                      </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center p-3">
+                      <div>
+                        <h6 class="mb-0">Diendels Saryono</h6>
+                        <p class="mb-0 small text-muted">Wakil Sekretaris</p>
+                      </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center p-3">
+                      <div>
+                        <h6 class="mb-0">Micha Wungow</h6>
+                        <p class="mb-0 small text-muted">Bendahara</p>
+                      </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center p-3">
+                      <div>
+                        <h6 class="mb-0">Yuan Mantiri</h6>
+                        <p class="mb-0 small text-muted">Wakil Bendahara</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Galeri Terbaru -->
+          <div class="row mt-4">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Galeri Terbaru</h5>
+                  <a href="#" class="text-decoration-none small">Lihat Semua</a>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-2 col-sm-4 col-6">
+                      <div class="gallery-item">
+                        <img src="../../../assets/gallery/kompetisiAlbum.jpg" alt="Galeri" />
+                        <div class="gallery-overlay">
+                          <div>
+                            <button class="btn-action view me-1"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit me-1"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete"><i class="bi bi-trash"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                      <div class="gallery-item">
+                        <img src="../../../assets/gallery/pelantikan.png" alt="Galeri" />
+                        <div class="gallery-overlay">
+                          <div>
+                            <button class="btn-action view me-1"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit me-1"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete"><i class="bi bi-trash"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                      <div class="gallery-item">
+                        <img src="../../../assets/gallery/ppkOrmawa.jpg" alt="Galeri" />
+                        <div class="gallery-overlay">
+                          <div>
+                            <button class="btn-action view me-1"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit me-1"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete"><i class="bi bi-trash"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                      <div class="gallery-item">
+                        <img src="../../../assets/gallery/rapat.png" alt="Galeri" />
+                        <div class="gallery-overlay">
+                          <div>
+                            <button class="btn-action view me-1"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit me-1"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete"><i class="bi bi-trash"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                      <div class="gallery-item">
+                        <img src="../../../assets/gallery/workshop.png" alt="Galeri" />
+                        <div class="gallery-overlay">
+                          <div>
+                            <button class="btn-action view me-1"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit me-1"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete"><i class="bi bi-trash"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                      <div class="gallery-item">
+                        <img src="../../../assets/gallery/workshopSeminarAlbum.jpg" alt="Galeri" />
+                        <div class="gallery-overlay">
+                          <div>
+                            <button class="btn-action view me-1"><i class="bi bi-eye"></i></button>
+                            <button class="btn-action edit me-1"><i class="bi bi-pencil"></i></button>
+                            <button class="btn-action delete"><i class="bi bi-trash"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Toggle Sidebar on Mobile
+      document.querySelector('.toggle-sidebar').addEventListener('click', function () {
+        document.querySelector('.sidebar').classList.toggle('show');
+      });
+
+      // Tab Navigation
+      function showTab(tabName) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach((tab) => {
+          tab.style.display = 'none';
+        });
+
+        // Show selected tab
+        document.getElementById(tabName + '-tab').style.display = 'block';
+
+        // Update active menu item
+        document.querySelectorAll('.sidebar-menu-item').forEach((item) => {
+          item.classList.remove('active');
+        });
+
+        // Set active class on clicked menu item
+        event.currentTarget.classList.add('active');
+      }
+    </script>
+  </body>
+</html>
